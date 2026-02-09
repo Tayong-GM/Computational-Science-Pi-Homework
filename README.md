@@ -1,6 +1,6 @@
 # Computational-Science-Pi-Homework
 
-This program shows how truncation and rounding affect the value of π at 20, 40, 60, and 100 decimal places. Truncation drops extra digits, while rounding adjusts the last digit based on the next one. These approximations are used to calculate the volume of a sphere, and the results are compared numerically and visually.
+This program shows how truncation and rounding affect the value of π at 20, 40, 60, and 100 decimal places. Truncation drops extra digits, while rounding adjusts the last digit based on the next one. These approximations are used to calculate the volume of a sphere using the formula V = 4/3 π r^3 with the radius of 1, and the results are compared numerically and visually .
  
 GRAPTH OUTPUT:
 <img width="1251" height="833" alt="Screenshot 2026-02-09 123938" src="https://github.com/user-attachments/assets/ef962f8f-4077-4e0f-a30a-1c1b742c42b9" />
