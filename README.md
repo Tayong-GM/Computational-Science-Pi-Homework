@@ -3,7 +3,7 @@
 This program shows how truncation and rounding affect the value of π at 20, 40, 60, and 100 decimal places. Truncation drops extra digits, while rounding adjusts the last digit based on the next one. These approximations are used to calculate the volume of a sphere, and the results are compared numerically and visually.
  
 GRAPTH OUTPUT:
-<img width="1257" height="833" alt="Screenshot 2026-02-09 112940" src="https://github.com/user-attachments/assets/56c33281-eced-4000-9e62-a135c81eb293" />
+<img width="1251" height="833" alt="Screenshot 2026-02-09 123938" src="https://github.com/user-attachments/assets/ef962f8f-4077-4e0f-a30a-1c1b742c42b9" />
 
 TERMINAL OUTPUT:
 <img width="1352" height="471" alt="Screenshot 2026-02-09 122714" src="https://github.com/user-attachments/assets/e73b5f84-bd86-4192-9c00-89a49760cb10" />
