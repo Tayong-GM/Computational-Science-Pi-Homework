@@ -1,55 +1,80 @@
 from decimal import Decimal, getcontext, ROUND_DOWN, ROUND_HALF_UP
 from mpmath import mp
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-#Set precision
+# Precision settings
 mp.dps = 120
 getcontext().prec = 120
 
 
-# Get pi from mpmath lib
+#Get high-precision pi
 pi = Decimal(str(mp.pi))
 
 
-# Decimal places to check
+# Sphere radius
+r = Decimal(1)  # radius = 1 for simplicity
 
+# True volume using full pi
+true_volume = (Decimal(4) / Decimal(3)) * pi * (r ** 3)
+
+# Decimal places to test
 places = [20, 40, 60, 100]
-truncated_values = []
-rounded_values = []
+
+truncated_volumes = []
+rounded_volumes = []
+
+print("TRUE VOLUME (high precision):")
+print(true_volume)
+print("-" * 60)
 
 
-#Compute truncated and rounded values
+# Main loop
 for p in places:
+    mask = Decimal(f"1.{'0'*p}")
+
+    # Truncation
     getcontext().rounding = ROUND_DOWN
-    truncated = pi.quantize(Decimal(f"1.{'0'*p}"))
-    truncated_values.append(float(truncated))
+    pi_trunc = pi.quantize(mask)
+    vol_trunc = (Decimal(4) / Decimal(3)) * pi_trunc * (r ** 3)
 
+    # Rounding
     getcontext().rounding = ROUND_HALF_UP
-    rounded = pi.quantize(Decimal(f"1.{'0'*p}"))
-    rounded_values.append(float(rounded))
+    pi_round = pi.quantize(mask)
+    vol_round = (Decimal(4) / Decimal(3)) * pi_round * (r ** 3)
 
-    print(f"\n{p} decimal places")
-    print("Truncated:", truncated)
-    print("Rounded  :", rounded)
-    print("Difference:", abs(rounded - truncated))
+    truncated_volumes.append(float(vol_trunc))
+    rounded_volumes.append(float(vol_round))
+
+    print(f"\n{p} DECIMAL PLACES")
+    print("π truncated :", pi_trunc)
+    print("π rounded   :", pi_round)
+
+    print("Volume (truncated):", vol_trunc)
+    print("Volume (rounded)  :", vol_round)
+    print("Difference        :", abs(vol_round - vol_trunc))
+
+    print("Are volumes equal?:", vol_trunc == vol_round)
+
+    print("Trunc vs true diff:", abs(true_volume - vol_trunc))
+    print("Round vs true diff:", abs(true_volume - vol_round))
 
 
-# Side-by-side bar chart
-import numpy as np
+# Visualization for graph
 
 x = np.arange(len(places))
 width = 0.35
 
-plt.figure(figsize=(10,6))
-plt.bar(x - width/2, truncated_values, width, label='Truncated', color='skyblue')
-plt.bar(x + width/2, rounded_values, width, label='Rounded', color='red')
+plt.figure(figsize=(10, 6))
+plt.bar(x - width/2, truncated_volumes, width, label="Truncated Volume", color="skyblue")
+plt.bar(x + width/2, rounded_volumes, width, label="Rounded Volume", color="red")
 
 plt.xticks(x, places)
-plt.xlabel("Decimal Places")
-plt.ylabel("Value of π (approx)")
-plt.title("Truncation vs Rounding of π at Different Decimal Places")
+plt.xlabel("Decimal Places of π")
+plt.ylabel("Sphere Volume (r = 1)")
+plt.title("Sphere Volume Using Truncated vs Rounded π")
 plt.legend()
-plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.grid(axis="y", linestyle="--", alpha=0.5)
 plt.tight_layout()
-plt.show(block=True)
+plt.show()
